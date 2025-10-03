@@ -1,4 +1,4 @@
-const ProductModel = require('../models/product.model');
+const ProductModel = require("../models/product.model");
 
 async function createProduct(data) {
   return await ProductModel.create(data);
@@ -15,7 +15,14 @@ async function deleteProduct(id) {
 
 async function listProducts(query) {
   const { page = 1, limit = 12, category, minPrice, maxPrice, q } = query;
-  return await ProductModel.list({ page: Number(page), limit: Number(limit), category, minPrice, maxPrice, q });
+  return await ProductModel.list({
+    page: Number(page),
+    limit: Number(limit),
+    category,
+    minPrice,
+    maxPrice,
+    q,
+  });
 }
 
 async function getProductById(id) {
@@ -33,5 +40,5 @@ module.exports = {
   deleteProduct,
   listProducts,
   getProductById,
-  setProductImage
+  setProductImage,
 };

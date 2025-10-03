@@ -1,4 +1,4 @@
-const db = require('../config/database');
+const db = require("../config/database");
 
 class CartModel {
   static async getItems(userId) {
@@ -8,7 +8,7 @@ class CartModel {
        JOIN products p ON p.id = c.product_id
        WHERE c.user_id = ?
        ORDER BY c.updated_at DESC`,
-      [userId]
+      [userId],
     );
     return rows;
   }
@@ -18,7 +18,7 @@ class CartModel {
       `INSERT INTO cart_items (user_id, product_id, quantity, created_at, updated_at)
        VALUES (?, ?, ?, NOW(), NOW())
        ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity), updated_at = NOW()`,
-      [userId, productId, quantity]
+      [userId, productId, quantity],
     );
     return res.affectedRows > 0;
   }
@@ -26,25 +26,30 @@ class CartModel {
   static async setQuantity(userId, productId, quantity) {
     if (quantity <= 0) {
       const [res] = await db.execute(
-        'DELETE FROM cart_items WHERE user_id = ? AND product_id = ?',
-        [userId, productId]
+        "DELETE FROM cart_items WHERE user_id = ? AND product_id = ?",
+        [userId, productId],
       );
       return res.affectedRows > 0;
     }
     const [res] = await db.execute(
-      'UPDATE cart_items SET quantity = ?, updated_at = NOW() WHERE user_id = ? AND product_id = ?',
-      [quantity, userId, productId]
+      "UPDATE cart_items SET quantity = ?, updated_at = NOW() WHERE user_id = ? AND product_id = ?",
+      [quantity, userId, productId],
     );
     return res.affectedRows > 0;
   }
 
   static async removeItem(userId, productId) {
-    const [res] = await db.execute('DELETE FROM cart_items WHERE user_id = ? AND product_id = ?', [userId, productId]);
+    const [res] = await db.execute(
+      "DELETE FROM cart_items WHERE user_id = ? AND product_id = ?",
+      [userId, productId],
+    );
     return res.affectedRows > 0;
   }
 
   static async clear(userId) {
-    const [res] = await db.execute('DELETE FROM cart_items WHERE user_id = ?', [userId]);
+    const [res] = await db.execute("DELETE FROM cart_items WHERE user_id = ?", [
+      userId,
+    ]);
     return res.affectedRows > 0;
   }
 }
