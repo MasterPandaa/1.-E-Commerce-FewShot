@@ -93,7 +93,7 @@ db/
 
 ## Setup
 
-1) Copy environment file
+1. Copy environment file
 
 ```
 cp .env.example .env
@@ -101,13 +101,13 @@ cp .env.example .env
 
 Fill in values for DB, JWT, and SMTP (for email). For local dev, you can use any SMTP provider or set up a test inbox (e.g., Ethereal or MailHog).
 
-2) Install dependencies
+2. Install dependencies
 
 ```
 npm install
 ```
 
-3) Create database schema
+3. Create database schema
 
 Using MySQL CLI:
 
@@ -117,7 +117,7 @@ mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS ecommerce_db;"
 mysql -u root -p ecommerce_db < db/schema.sql
 ```
 
-4) Start the server
+4. Start the server
 
 ```
 # Development (with nodemon)

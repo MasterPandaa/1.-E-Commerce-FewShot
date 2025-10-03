@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
-const { email: emailCfg } = require('../config/config');
-const logger = require('../config/logger');
+const nodemailer = require("nodemailer");
+const { email: emailCfg } = require("../config/config");
+const logger = require("../config/logger");
 
 let transporter;
 function getTransporter() {
@@ -9,7 +9,10 @@ function getTransporter() {
       host: emailCfg.host,
       port: emailCfg.port,
       secure: emailCfg.port === 465, // true for 465
-      auth: emailCfg.user && emailCfg.password ? { user: emailCfg.user, pass: emailCfg.password } : undefined
+      auth:
+        emailCfg.user && emailCfg.password
+          ? { user: emailCfg.user, pass: emailCfg.password }
+          : undefined,
     });
   }
   return transporter;
@@ -17,11 +20,17 @@ function getTransporter() {
 
 async function sendMail({ to, subject, html, attachments }) {
   const t = getTransporter();
-  const info = await t.sendMail({ from: emailCfg.from, to, subject, html, attachments });
-  logger.info('Email sent', { messageId: info.messageId, to, subject });
+  const info = await t.sendMail({
+    from: emailCfg.from,
+    to,
+    subject,
+    html,
+    attachments,
+  });
+  logger.info("Email sent", { messageId: info.messageId, to, subject });
   return info;
 }
 
 module.exports = {
-  sendMail
+  sendMail,
 };

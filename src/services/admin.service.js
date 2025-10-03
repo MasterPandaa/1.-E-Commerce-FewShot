@@ -1,4 +1,4 @@
-const UserModel = require('../models/user.model');
+const UserModel = require("../models/user.model");
 
 async function listUsers({ page = 1, limit = 20 }) {
   return await UserModel.listUsers({ page, limit });
@@ -10,5 +10,5 @@ async function updateUserRole(userId, role) {
 
 module.exports = {
   listUsers,
-  updateUserRole
+  updateUserRole,
 };

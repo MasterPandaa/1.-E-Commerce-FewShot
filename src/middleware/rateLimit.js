@@ -1,5 +1,5 @@
-const rateLimit = require('express-rate-limit');
-const { rateLimit: cfg } = require('../config/config');
+const rateLimit = require("express-rate-limit");
+const { rateLimit: cfg } = require("../config/config");
 
 const apiLimiter = rateLimit({
   windowMs: cfg.windowMinutes * 60 * 1000,
@@ -8,8 +8,8 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
   message: {
     success: false,
-    message: 'Too many requests, please try again later.'
-  }
+    message: "Too many requests, please try again later.",
+  },
 });
 
 module.exports = apiLimiter;

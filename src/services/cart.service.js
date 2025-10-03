@@ -1,5 +1,5 @@
-const CartModel = require('../models/cart.model');
-const ProductModel = require('../models/product.model');
+const CartModel = require("../models/cart.model");
+const ProductModel = require("../models/product.model");
 
 async function getCart(userId) {
   const items = await CartModel.getItems(userId);
@@ -10,7 +10,7 @@ async function getCart(userId) {
     image_url: it.image_url,
     stock: it.stock,
     quantity: it.quantity,
-    subtotal: Number(it.price) * it.quantity
+    subtotal: Number(it.price) * it.quantity,
   }));
   const total = enriched.reduce((acc, it) => acc + it.subtotal, 0);
   return { items: enriched, total };
@@ -19,8 +19,8 @@ async function getCart(userId) {
 async function addItem(userId, productId, quantity) {
   const product = await ProductModel.findById(productId);
   if (!product) {
-    const err = new Error('Product not found');
-    err.code = 'NOT_FOUND';
+    const err = new Error("Product not found");
+    err.code = "NOT_FOUND";
     throw err;
   }
   await CartModel.addOrUpdate(userId, productId, quantity);
@@ -30,8 +30,8 @@ async function addItem(userId, productId, quantity) {
 async function setQuantity(userId, productId, quantity) {
   const product = await ProductModel.findById(productId);
   if (!product) {
-    const err = new Error('Product not found');
-    err.code = 'NOT_FOUND';
+    const err = new Error("Product not found");
+    err.code = "NOT_FOUND";
     throw err;
   }
   await CartModel.setQuantity(userId, productId, quantity);
@@ -53,5 +53,5 @@ module.exports = {
   addItem,
   setQuantity,
   removeItem,
-  clearCart
+  clearCart,
 };

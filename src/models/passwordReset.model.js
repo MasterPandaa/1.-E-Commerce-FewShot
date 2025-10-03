@@ -1,4 +1,4 @@
-const db = require('../config/database');
+const db = require("../config/database");
 
 class PasswordResetModel {
   static async create({ userId, tokenHash, expiresAt }) {
@@ -22,12 +22,18 @@ class PasswordResetModel {
   }
 
   static async consume(id) {
-    const [res] = await db.execute('DELETE FROM password_reset_tokens WHERE id = ?', [id]);
+    const [res] = await db.execute(
+      "DELETE FROM password_reset_tokens WHERE id = ?",
+      [id],
+    );
     return res.affectedRows > 0;
   }
 
   static async deleteByUser(userId) {
-    const [res] = await db.execute('DELETE FROM password_reset_tokens WHERE user_id = ?', [userId]);
+    const [res] = await db.execute(
+      "DELETE FROM password_reset_tokens WHERE user_id = ?",
+      [userId],
+    );
     return res.affectedRows > 0;
   }
 }
